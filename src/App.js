@@ -3,26 +3,31 @@ import React from 'react';
 import './App.css';
 
 function App() {
-  let items = [
-    {'name': 'berry','price': '100'},
-    {'name': 'apple','price': '150'},
-    {'name': 'banana','price': '230'}
-  ]
-
   return(
-    <div className='App'>
-      <table className='table table-striped'>
-        <tbody>
-          {items.map((value) => (
-              <tr> 
-              <th scope='row'>{value.name}</th>
-              <td>￥{value.price}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div className='container text-center'>
+      <Clock/>
     </div>
   )
 }
-
+class Clock extends React.Component {
+  constructor(props) {
+    super(props);
+    this.now = new Date();
+    // this.time 
+    this.state = {
+      time: `${this.now.getHours()}:${this.now.getMinutes()}:${this.now.getSeconds()}:${this.now.getMilliseconds()}`
+    }
+    this.refresh = this.refresh.bind(this);
+  }
+  refresh(){
+    this.now = new Date();
+    this.setState((state) => ({
+      time: `${this.now.getHours()}:${this.now.getMinutes()}:${this.now.getSeconds()}:${this.now.getMilliseconds()}`
+    }));
+  }
+  render(){
+    
+    return <p onClick={this.refresh}>{this.state.time}</p>
+  }
+}
 export default App;
